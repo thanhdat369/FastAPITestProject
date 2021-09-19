@@ -5,7 +5,7 @@ from config.db import meta, engine
 users = Table(
     "user",
     meta,
-    Column("id", String, primary_key=True),
+    Column("id", Integer, primary_key=True,autoincrement=True),
     Column(
         "name",
         String(255),

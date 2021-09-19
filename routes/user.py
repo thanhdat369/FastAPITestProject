@@ -39,10 +39,9 @@ async def get_user(id: str):
     return conn.execute(users.select().where(users.c.id == id)).first()
 
 
-@user.post("/", tags=["users"], response_model=User, description="Create a new user")
-async def create_user(id:int=Form(...),username:str=Form(...),password:str=Form(...),email:str=Form(...),avtSrc:str=Form(...)):
-    print(new_user)
-    new_user = {"id":id,"name": username, "email": email,"avtSrc":avtSrc}
+@user.post("/users", tags=["users"], response_model=User, description="Create a new user")
+async def create_user(username:str=Form(...),password:str=Form(...),email:str=Form(...),avtSrc:str=Form(...)):
+    new_user = {"name": username, "email": email,"avtSrc":avtSrc}
     print(new_user)
     new_user["password"] = f.encrypt(password.encode("utf-8"))
     result = conn.execute(users.insert().values(new_user))
@@ -50,7 +49,7 @@ async def create_user(id:int=Form(...),username:str=Form(...),password:str=Form(
 
 
 @user.put(
-    "users/{id}", tags=["users"], response_model=User, description="Update a User by Id"
+    "/users/{id}", tags=["users"], response_model=User, description="Update a User by Id"
 )
 async def update_user(user: User, id: int):
     conn.execute(
@@ -61,7 +60,7 @@ async def update_user(user: User, id: int):
     return conn.execute(users.select().where(users.c.id == id)).first()
 
 
-@user.delete("/{id}", tags=["users"], status_code=HTTP_204_NO_CONTENT)
+@user.delete("/users/{id}", tags=["users"], status_code=HTTP_204_NO_CONTENT)
 async def delete_user(id: int):
     conn.execute(users.delete().where(users.c.id == id))
     return conn.execute(users.select().where(users.c.id == id)).first()
