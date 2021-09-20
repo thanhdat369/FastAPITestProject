@@ -10,3 +10,9 @@ class User(BaseModel):
 
 class UserCount(BaseModel):
     total: int
+
+class UserCreate(BaseModel):
+    name: str
+    email: str
+    password: str
+    avtSrc:str

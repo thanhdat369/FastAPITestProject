@@ -1,7 +1,7 @@
 from fastapi import APIRouter
 from config.db import conn
 from models.user import users
-from schemas.user import User, UserCount
+from schemas.user import User, UserCount,UserCreate
 from typing import List
 from starlette.status import HTTP_204_NO_CONTENT
 from sqlalchemy import func, select
@@ -40,10 +40,10 @@ async def get_user(id: str):
 
 
 @user.post("/users", tags=["users"], response_model=User, description="Create a new user")
-async def create_user(username:str=Form(...),password:str=Form(...),email:str=Form(...),avtSrc:str=Form(...)):
-    new_user = {"name": username, "email": email,"avtSrc":avtSrc}
+async def create_user(user:UserCreate):
+    new_user = {"name": user.name, "email": user.email,"avtSrc":user.avtSrc}
     print(new_user)
-    new_user["password"] = f.encrypt(password.encode("utf-8"))
+    new_user["password"] = f.encrypt(user.password.encode("utf-8"))
     result = conn.execute(users.insert().values(new_user))
     return new_user
 
