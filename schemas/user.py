@@ -16,3 +16,8 @@ class UserCreate(BaseModel):
     email: str
     password: str
     avtSrc:str
+
+class UserUpdate(BaseModel):
+    name: str
+    email: str
+    avtSrc:str

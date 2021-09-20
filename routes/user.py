@@ -1,7 +1,7 @@
 from fastapi import APIRouter
 from config.db import conn
 from models.user import users
-from schemas.user import User, UserCount,UserCreate
+from schemas.user import User, UserCount,UserCreate,UserUpdate
 from typing import List
 from starlette.status import HTTP_204_NO_CONTENT
 from sqlalchemy import func, select
@@ -51,10 +51,10 @@ async def create_user(user:UserCreate):
 @user.put(
     "/users/{id}", tags=["users"], response_model=User, description="Update a User by Id"
 )
-async def update_user(user: User, id: int):
+async def update_user(user: UserUpdate, id: int):
     conn.execute(
         users.update()
-        .values(name=user.name, email=user.email, password=user.password,avtSrc=user.avtSrc)
+        .values(name=user.name, email=user.email,avtSrc=user.avtSrc)
         .where(users.c.id == id)
     )
     return conn.execute(users.select().where(users.c.id == id)).first()
