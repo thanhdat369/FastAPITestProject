@@ -1,23 +1,14 @@
-from typing import Optional
 from pydantic import BaseModel
-
+from typing import Optional
 class User(BaseModel):
-    id: Optional[int]
-    name: str
-    email: str
-    password: str
-    avtSrc:str
+    username:str
+    description:Optional[str]
+    avtSrc:Optional[str]
 
-class UserCount(BaseModel):
-    total: int
 
-class UserCreate(BaseModel):
-    name: str
-    email: str
-    password: str
-    avtSrc:str
+class UserCreate(User):
+    password:str
 
-class UserUpdate(BaseModel):
-    name: str
-    email: str
-    avtSrc:str
+class UserInDB(UserCreate):
+    isDiasble:bool
+    roleID:str

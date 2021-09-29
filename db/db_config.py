@@ -4,4 +4,4 @@ engine = create_engine("sqlite:///./example.db",connect_args={"check_same_thread
 
 meta = MetaData()
 
-conn = engine.connect() 
+conn = engine.connect()
