@@ -57,4 +57,4 @@ def actviate_user(username: str):
     if not user_c:
         return False
     else:
-        return conn.execute(users.update().values(isDisable=False).where(user.c.username == username))
+        return conn.execute(users.update().values(isDisable=False).where(users.c.username == username))

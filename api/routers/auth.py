@@ -6,7 +6,7 @@ from datetime import timedelta
 from services.jwt import create_access_token
 from services.user import aut_user
 
-from schemas.user import User,UserInDB
+from schemas.user import User,UserInDB,UserAuth
 
 router = APIRouter()
 
